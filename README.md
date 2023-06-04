@@ -18,7 +18,9 @@ oscilloscopes, multimeters, signal generators and other tools that support SCPI.
 
 with more devices coming shortly, including DMM.
 
-##examples
+
+
+## examples
 
 The examples directory has a few samples of the interfaces in use.  Most interesting may be the filterscan.py which uses the signal generator and oscope to characterize a low frequency, low pass filter.
 
