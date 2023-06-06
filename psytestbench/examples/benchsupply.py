@@ -19,6 +19,9 @@ If not, see <https://www.gnu.org/licenses/>.
 from psytestbench.spd3303x.instrument import Channel, Instrument as BenchSupply
 from psytestbench.psytb.cli import CLI 
 
+
+import psytestbench.examples.mylab 
+
 import logging 
 log = logging.getLogger(__name__)
 
@@ -137,6 +140,7 @@ def dumpCurrentSettings(dev:BenchSupply):
     
         
 def getBenchSupply(devAddress:str) -> BenchSupply:
+    
     dev = BenchSupply(devAddress)
     dev.connect()
     if not dev.is_connected:
@@ -151,9 +155,13 @@ def main():
         if args.listdevices:
             return 
         
-        return errorMsg('You must pass a --device ADDRESS')
+        dev = psytestbench.examples.mylab.Lab.psu 
+        
+        if dev is None:
+            return errorMsg('You must pass a --device ADDRESS')
     
-    dev = getBenchSupply(args.device)
+    else:
+        dev = getBenchSupply(args.device)
     
     if args.recall:
         recall(dev, args.recall)
