@@ -17,11 +17,11 @@ You should have received a copy of the GNU General Public License along with psy
 If not, see <https://www.gnu.org/licenses/>.
 '''
 
-from psytestbench.psytb.instrument import Instrument
 
-class Oscilloscope(Instrument):
-    
-    InstrumentTypeName = 'oscilloscope'
+from psytestbench.psytb.instrument_types import MultiMeter
+
+class MultiMeter(MultiMeter):
+    InstrumentTypeName = 'multimeter'
     
     def __init__(self, port=None, 
                  port_match=True, 

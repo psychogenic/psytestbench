@@ -16,19 +16,12 @@ Created on Jun 3, 2023
 You should have received a copy of the GNU General Public License along with psytestbench. 
 If not, see <https://www.gnu.org/licenses/>.
 '''
+from psytestbench.psytb.instrument_roles.role import InstrumentRole
 
-
-from psytestbench.psytb.instrument import Instrument
-
-class PowerSupply(Instrument):
+class Oscilloscope(InstrumentRole):
+    InstrumentRoleName = 'oscilloscope'
     
-    InstrumentTypeName = 'power supply'
-    
-    def __init__(self, port=None, 
-                 port_match=True, 
-                 backend='', 
-                 handshake=False, 
-                 arg_separator=',', **resource_params):
-        super().__init__(port, port_match, backend, handshake, arg_separator, 
-                         **resource_params)
-        
+
+    @classmethod
+    def name(cls):
+        return Oscilloscope.InstrumentRoleName

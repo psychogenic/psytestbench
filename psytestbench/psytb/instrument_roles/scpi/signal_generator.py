@@ -18,7 +18,7 @@ If not, see <https://www.gnu.org/licenses/>.
 '''
 
 
-from psytestbench.psytb.instrument import Instrument
+from psytestbench.psytb.instrument.instrument import Instrument
 
 class SignalGenerator(Instrument):
     InstrumentTypeName = 'signal generator'

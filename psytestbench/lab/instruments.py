@@ -17,8 +17,9 @@ You should have received a copy of the GNU General Public License along with psy
 If not, see <https://www.gnu.org/licenses/>.
 '''
 
-import psytestbench.psytb.instrument_types as insttypes
-from psytestbench.psytb.instrument import InstrumentType
+from psytestbench.psytb.instrument_roles.role import InstrumentRole
+import psytestbench.psytb.instrument_roles as roles
+from psytestbench.psytb.instrument.type import InstrumentType
 
 import logging 
 log = logging.getLogger(__name__)
@@ -36,15 +37,15 @@ class LabInstruments:
         self._dmm = None 
         
         
-    def hasInstrumentType(self, ofType) -> InstrumentType:
+    def hasInstrumentRole(self, roleType:InstrumentRole) -> InstrumentType:
         for instType in self._instDetails:
-            if instType.isSubclass(ofType):
+            if instType.hasRole(roleType):
                 return instType
             
         return None
         
     def generateInstrument(self, ofType):
-        instType = self.hasInstrumentType(ofType)
+        instType = self.hasInstrumentRole(ofType)
         if instType is None:
             log.warn(f'No info found to generate {ofType} instrument')
             return None
@@ -80,51 +81,51 @@ class LabInstruments:
                 
                 
     def hasOscilloscope(self):
-        return self.hasInstrumentType(insttypes.Oscilloscope)
+        return self.hasInstrumentRole(roles.Oscilloscope)
     def hasSignalGenerator(self):
-        return self.hasInstrumentType(insttypes.SignalGenerator)
+        return self.hasInstrumentRole(roles.SignalGenerator)
     def hasPowerSupply(self):
-        return self.hasInstrumentType(insttypes.PowerSupply)
+        return self.hasInstrumentRole(roles.PowerSupply)
     
     def hasMultimeter(self):
-        return self.hasInstrumentType(insttypes.MultiMeter)
+        return self.hasInstrumentRole(roles.MultiMeter)
     
     @property 
-    def dso(self) -> insttypes.Oscilloscope:
+    def dso(self):
         return self.oscilloscope
     
     @property 
-    def oscilloscope(self) -> insttypes.Oscilloscope:
+    def oscilloscope(self):
         if self._dso is None:
-            self._dso = self.generateInstrument(insttypes.Oscilloscope)
+            self._dso = self.generateInstrument(roles.Oscilloscope)
         return self._dso 
     
     @property 
-    def signalGenerator(self) -> insttypes.SignalGenerator:
+    def signalGenerator(self):
         
         if self._siggen is None:
-            self._siggen = self.generateInstrument(insttypes.SignalGenerator)
+            self._siggen = self.generateInstrument(roles.SignalGenerator)
             
         return self._siggen
     
     
     @property 
-    def psu(self) -> insttypes.PowerSupply:
+    def psu(self):
         return self.powerSupply
     @property 
-    def powerSupply(self) -> insttypes.PowerSupply:
+    def powerSupply(self) -> roles.PowerSupply:
         if self._benchsupply is None:
-            self._benchsupply = self.generateInstrument(insttypes.PowerSupply)
+            self._benchsupply = self.generateInstrument(roles.PowerSupply)
         return self._benchsupply
     
     @property 
-    def dmm(self) -> insttypes.MultiMeter:
+    def dmm(self):
         return self.multimeter
     
     @property 
-    def multimeter(self) -> insttypes.MultiMeter:
+    def multimeter(self):
         if self._dmm is None:
-            self._dmm = self.generateInstrument(insttypes.MultiMeter)
+            self._dmm = self.generateInstrument(roles.MultiMeter)
         return self._dmm
     
     

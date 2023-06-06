@@ -20,7 +20,7 @@ If not, see <https://www.gnu.org/licenses/>.
 
 
 
-from psytestbench.psytb.instrument import Instrument
+from psytestbench.psytb.instrument.scpi import SCPIInstrument
 from psytestbench.psytb.property import IndexedProperty, scpi
 
 class Channel(IndexedProperty):
@@ -33,7 +33,7 @@ class Channel(IndexedProperty):
     
     '''
     
-    def __init__(self, chanid:int, parentInstrument:Instrument, 
+    def __init__(self, chanid:int, parentInstrument:SCPIInstrument, 
                  channelProp:scpi.scpi_instrument.Property):
         super().__init__(chanid, channelProp)
         self.parentInstrument = parentInstrument
@@ -44,7 +44,7 @@ class Channel(IndexedProperty):
         return f'CH{self.id}'
     
     @property 
-    def parent(self) -> Instrument: 
+    def parent(self) -> SCPIInstrument: 
         return self.parentInstrument
     
     

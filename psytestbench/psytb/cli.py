@@ -23,7 +23,8 @@ from enum import Enum
 
 
 import psytestbench.psytb.settings as settings
-from psytestbench.psytb.instrument import Instrument
+from psytestbench.psytb.instrument.instrument import Instrument
+from psytestbench.psytb.instrument.scpi import SCPIInstrument
 
 import logging 
 log = logging.getLogger(__name__)
@@ -42,7 +43,7 @@ class CLI:
     
     @classmethod 
     def listAvailableDevices(cls):
-        return Instrument.listResources()
+        return SCPIInstrument.listResources()
         
     
     @classmethod 

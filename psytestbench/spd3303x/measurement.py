@@ -17,13 +17,14 @@ You should have received a copy of the GNU General Public License along with psy
 If not, see <https://www.gnu.org/licenses/>.
 '''
 
-from psytestbench.psytb.instrument import Instrument, InstrumentAPIPackage
+from psytestbench.psytb.instrument.instrument import InstrumentAPIPackage
+from psytestbench.psytb.instrument.scpi import SCPIInstrument
 
 from psytestbench.spd3303x.channel import Channel
 
 class Measurement(InstrumentAPIPackage):
     
-    def __init__(self, parentInstrument:Instrument):
+    def __init__(self, parentInstrument:SCPIInstrument):
         super().__init__(parentInstrument)
         
         

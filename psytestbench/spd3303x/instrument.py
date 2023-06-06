@@ -16,13 +16,14 @@ Created on Jun 2, 2023
 You should have received a copy of the GNU General Public License along with psytestbench. 
 If not, see <https://www.gnu.org/licenses/>.
 '''
-
-from psytestbench.psytb.instrument_types import PowerSupply
+from psytestbench.psytb.instrument.scpi import SCPIInstrument
+import psytestbench.psytb.instrument_roles as role
 from psytestbench.spd3303x.channel import Channel
 
 from psytestbench.spd3303x.measurement import Measurement
 
-class Instrument(PowerSupply):
+class Instrument(SCPIInstrument):
+    Role = role.PowerSupply
     
     def __init__(self, port=None, port_match=True, 
                  backend='', handshake=False, arg_separator=',', **resource_params):

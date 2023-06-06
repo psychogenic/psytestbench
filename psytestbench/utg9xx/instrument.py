@@ -17,11 +17,13 @@ You should have received a copy of the GNU General Public License along with psy
 If not, see <https://www.gnu.org/licenses/>.
 '''
 
-from psytestbench.psytb.instrument_types import SignalGenerator
+
+from psytestbench.psytb.instrument.scpi import SCPIInstrument
+import psytestbench.psytb.instrument_roles as role
 from psytestbench.utg9xx.channel import Channel
 
-class Instrument(SignalGenerator):
-    
+class Instrument(SCPIInstrument):
+    Role = role.SignalGenerator
     def __init__(self, port=None, port_match=True, backend='', handshake=False, arg_separator=',', **resource_params):
         '''
         
