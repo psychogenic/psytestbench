@@ -20,6 +20,7 @@ If not, see <https://www.gnu.org/licenses/>.
 from psytestbench.psytb.instrument_roles.role import InstrumentRole
 import psytestbench.psytb.instrument_roles as roles
 from psytestbench.psytb.instrument.type import InstrumentType
+from psytestbench.psytb.instrument.instrument import Instrument as InstrumentBase
 
 import logging 
 log = logging.getLogger(__name__)
@@ -91,17 +92,17 @@ class LabInstruments:
         return self.hasInstrumentRole(roles.MultiMeter)
     
     @property 
-    def dso(self):
+    def dso(self) -> InstrumentBase:
         return self.oscilloscope
     
     @property 
-    def oscilloscope(self):
+    def oscilloscope(self) -> InstrumentBase:
         if self._dso is None:
             self._dso = self.generateInstrument(roles.Oscilloscope)
         return self._dso 
     
     @property 
-    def signalGenerator(self):
+    def signalGenerator(self) -> InstrumentBase:
         
         if self._siggen is None:
             self._siggen = self.generateInstrument(roles.SignalGenerator)
@@ -110,20 +111,20 @@ class LabInstruments:
     
     
     @property 
-    def psu(self):
+    def psu(self) -> InstrumentBase:
         return self.powerSupply
     @property 
-    def powerSupply(self) -> roles.PowerSupply:
+    def powerSupply(self)  -> InstrumentBase:
         if self._benchsupply is None:
             self._benchsupply = self.generateInstrument(roles.PowerSupply)
         return self._benchsupply
     
     @property 
-    def dmm(self):
+    def dmm(self)  -> InstrumentBase:
         return self.multimeter
     
     @property 
-    def multimeter(self):
+    def multimeter(self)  -> InstrumentBase:
         if self._dmm is None:
             self._dmm = self.generateInstrument(roles.MultiMeter)
         return self._dmm

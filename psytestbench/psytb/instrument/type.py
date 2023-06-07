@@ -27,7 +27,7 @@ class InstrumentType:
         return self.classType.InstrumentTypeName 
     
     def hasRole(self, role:InstrumentRole):
-        return self.classType.role() == role
+        return self.classType.instrumentRole() == role
     
     def construct(self):
         ctype = self.classType 

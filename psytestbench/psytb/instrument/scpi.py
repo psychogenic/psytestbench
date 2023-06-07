@@ -30,9 +30,12 @@ class SCPIInstrument(scpi.Instrument):
     Role = None
     
     @classmethod 
-    def role(cls) -> InstrumentRole:
+    def instrumentRole(cls) -> InstrumentRole:
         return cls.Role
     
+    @classmethod 
+    def instrumentRoleName(cls) -> InstrumentRole:
+        return cls.Role.name()
     
     @classmethod 
     def listResources(cls):

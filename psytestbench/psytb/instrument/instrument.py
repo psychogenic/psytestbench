@@ -19,6 +19,8 @@ If not, see <https://www.gnu.org/licenses/>.
 
 from psytestbench.psytb.instrument_roles.role import InstrumentRole
 
+from psytestbench.psytb.event.listener import Listener
+from psytestbench.psytb.event.notifier import Notifier
 class Instrument:
     
     @classmethod 
@@ -30,14 +32,28 @@ class Instrument:
         return cls.Role.name()
     
     def __init__(self):
-        pass 
+        self.event_notifier = Notifier()
     
     def connect(self):
+        return False
+    
+    def disconnect(self):
         return False
 
     def write(self, v):
         return False
-
+    
+    
+    # event notifier interfaces
+    def listenerAdd(self, listener:Listener):
+        self.event_notifier.add(listener)
+        
+    def listenerRemove(self, listener:Listener):
+        self.event_notifier.remove(listener)
+        
+    def notify(self, response):
+        self.event_notifier.notify(response)
+    
 
 class InstrumentAPIPackage:
     
