@@ -15,6 +15,42 @@ Created on Jun 4, 2023
 
 You should have received a copy of the GNU General Public License along with psytestbench. 
 If not, see <https://www.gnu.org/licenses/>.
+
+
+
+
+This program launches a shell to give access to all (supported and configured) 
+instruments available in the lab (see the top level README.md to config for 
+your setup).
+
+Once launched, you will be in a REPL python shell and have access to the 
+various instruments.  Code completion will work, so 
+
+>>> lab.dso.<TAB><TAB> 
+
+will list available attributes and methods.
+
+On launch, you will be shown which of the instrument types has been configured.
+These objects will only be instantiated, and connections made to the actual 
+instruments, when accessed (my siggen takes a second to wake up, the others 
+are quite snappy):
+
+
+*********     Psychogenic Testbench Console     *********
+Control instruments manually
+
+* Lab instruments available *
+        Power:          lab.powerSupply or lab.psu
+        Sig gen:        lab.signalGenerator
+        o-scope:        lab.oscilloscope or lab.dso
+        DMM:    lab.multimeter or lab.dmm
+  4/4 instrument types enabled.
+
+Autoconnect is ON
+
+>>> 
+
+
 '''
 
 import readline

@@ -15,6 +15,56 @@ Created on Jun 2, 2023
 
 You should have received a copy of the GNU General Public License along with psytestbench. 
 If not, see <https://www.gnu.org/licenses/>.
+
+
+
+
+This is a demo based on a program I have used to characterize low frequency, low pass filters.
+
+It will sweep the signal generator through the frequencies "manually" and make measurements on
+both channel 1 and 2 of the oscilloscope to produce a CSV of the resulting 
+frequency, Vpp in, Vpp out.
+
+It makes many assumptions about the devices, their capabilities and their connections--its main
+purpose here is to serve as a real world example use case.
+
+
+usage: filterscan.py [-h] [--list] [--device DEVICE] [--loglevel {debug,info,warn,error}]
+                     [--csv CSV] [--freqmin FREQMIN] [--freqmax FREQMAX] [--step STEP]
+                     [--numsamps NUMSAMPS] [--wave {sine,square,arb}]
+                     [--amplitude AMPLITUDE] [--psu_program PSU_PROGRAM]
+                     [--supply_voltage SUPPLY_VOLTAGE]
+
+xfer function sweep (testbench v 1.0.0)
+
+options:
+  -h, --help            show this help message and exit
+  --list                List all currently connected devices
+  --device DEVICE       Address of device
+  --loglevel {debug,info,warn,error}
+                        Set log level (verbosity)
+  --csv CSV             CSV file to output [/tmp/sweep.csv]
+  --freqmin FREQMIN     start frequency 50
+  --freqmax FREQMAX     start frequency 1200
+  --step STEP           start frequency 10
+  --numsamps NUMSAMPS   Num samples to average [2]
+  --wave {sine,square,arb}
+                        Select wave type [sine]
+  --amplitude AMPLITUDE
+                        Select wave amplitude (Volts) [0.4]
+  --psu_program PSU_PROGRAM
+                        PSU program to recall [1]
+  --supply_voltage SUPPLY_VOLTAGE
+                        PSU supply voltage (Volts) [3.3]
+
+
+
+
+
+
+
+
+
 '''
 
 
