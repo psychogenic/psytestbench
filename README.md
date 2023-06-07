@@ -20,6 +20,76 @@ oscilloscopes, multimeters, signal generators and other tools that support SCPI.
 
 
 
+## HOWTO
+
+If you look into the `psytestbench/examples/mylab.py` you will see how I set up the `LabInstruments` 
+object to work in the examples and... my lab.
+
+In short, you can describe the instruments you actually have, by selecting their type and defining 
+how to access the resource.
+
+All the instruments in this library are of various `Instrument` classes, so you import them all, e.g.
+
+```
+from psytestbench.ds1000z.instrument import Instrument as OScope
+from psytestbench.spd3303x.instrument import Instrument as BenchSupply
+# etc
+
+```
+and may then construct a LabInstruments object like so:
+
+```
+
+Lab = LabInstruments([
+        (OScope,        'USB0::6833::1230::DS1ZA181104442::0::INSTR'),
+        (BenchSupply,   'USB0::1155::30016::SPD3EGFQ6R2092::0::INSTR' ),
+        (SigGen,        'USB0::26198::2100::3568543393::0::INSTR'),
+        (Multimeter,    'usb:10c4:ea80')
+        ],
+        autoconnect=True)
+
+```
+
+Things to note:
+  * the LabInstruments takes a list of tuples, where each tuple is a (type, resourceId)
+  * the resourceId will of course be different for your instruments
+  * most of the IDs are SCPI identifiers, the multimeter here is a special case (it's a CP2110 USB interface)
+
+From there, the LabInstruments object above will have accessors for any of the instrument types defined:
+  * oscilloscope or dso (e.g. lab.dso);
+  * signalGenerator;
+  * powerSupply or psu; and
+  * multimeter or dmm
+are currently available.
+
+These are lazy-initialized, so you won't waste any time connecting to devices that you're not using.
+
+  
+So, how do you find the identifier for your instruments?
+
+### SCPI
+
+For SCPI instruments, it might be as simple as running a python shell and doing
+
+```
+>>> # import any of the SCPI instruments, say
+>>> import psytestbench.ds1000z.instrument
+>>> 
+>>> # call the listResources() class method on the Instrument class within
+>>> psytestbench.ds1000z.instrument.Instrument.listResources()
+('USB0::26198::2100::3568543393::0::INSTR',)
+```
+
+This will return a tuple of identifiers currently connected.
+
+### Serial
+
+For non-scpi devices that may be accessed using the serial port, the identifier is either:
+  * the serial device, e.g. '/dev/ttyUSB0'
+  * the serial "URL", e.g. 'cp2110://1-2:1.0' (anything supported by serial.serial_for_url)
+  * the 'usb:' hack included here (the CP2110 device path changes depending on where you plug it in--annoying)
+
+The usb hack is just a string with 'usb:VENDOR_ID:PRODUCT_ID' as shown by lsusb or whatever windows people use to find out the VID/PID of USB devices.
 
 ## examples
 
@@ -100,7 +170,8 @@ Control instruments manually
 ## todo
 
 Make a nice package for python installation.
-Bring in DMM support.
+Add documentation.
+Clean up the giant mess of importing my UTHID project into this testbench.
 More tools.
 
 ## license 
