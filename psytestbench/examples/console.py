@@ -43,7 +43,7 @@ Control instruments manually
         Power:          lab.powerSupply or lab.psu
         Sig gen:        lab.signalGenerator
         o-scope:        lab.oscilloscope or lab.dso
-        DMM:    lab.multimeter or lab.dmm
+        DMM:            lab.multimeter or lab.dmm
   4/4 instrument types enabled.
 
 Autoconnect is ON
@@ -82,7 +82,7 @@ def dumpCapabilities(l:LabInstruments):
         print('\to-scope:\tlab.oscilloscope or lab.dso')
         capCount += 1
     if l.hasMultimeter():
-        print('\tDMM:\tlab.multimeter or lab.dmm')
+        print('\tDMM:\t\tlab.multimeter or lab.dmm')
         capCount += 1
     print(f'  {capCount}/4 instrument types enabled.')
     print()
