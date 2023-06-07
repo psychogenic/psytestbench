@@ -12,11 +12,12 @@ It's goal is to offer a sensibly uniform means of controlling power supplies,
 oscilloscopes, multimeters, signal generators and other tools that support SCPI.
 
 ## Current instruments supported
+
  * Siglent SPD3303x power supplies
  * Rigol DS1000Z/MSO1000Z series oscilloscopes (like the classic DS1054z)
  * Unitrend Uni-T UTG9xx signal generators (tested on the UTG962)
+ * Unitrend Uni-T UT880x multi-meters (test on UT8804N, should work on all 8000 series?)
 
-with more devices coming shortly, including DMM.
 
 
 
