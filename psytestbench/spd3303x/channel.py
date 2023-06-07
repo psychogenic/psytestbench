@@ -70,3 +70,5 @@ class Channel(IndexedProperty):
     def off(self):
         return self.on(False)
     
+    def ramp(self, startVoltage:float, endVoltage:float, stepVoltage:float, stepDelaySecs:float=0.15):
+        self.parent.instrumentRole().ramp(self.voltage, startVoltage, endVoltage, stepVoltage, stepDelaySecs)
