@@ -15,6 +15,62 @@ Created on Jun 2, 2023
 
 You should have received a copy of the GNU General Public License along with psytestbench. 
 If not, see <https://www.gnu.org/licenses/>.
+
+
+
+This is a demo program that allows you to control a Siglent SPD3303 power supply.
+
+It may be run from the command line to do things like set voltage/current limits, turn
+outputs on/off, e.g.
+
+List SPCI devices
+$ python path/to/benchsupply.py --list
+
+
+Set voltage and turn on channel 2
+$ python path/to/benchsupply.py --device $DEVID --voltage_2 3.3 --on_2
+
+Recall program 4 and turn on channel 1
+$ python path/to/benchsupply.py --device $DEVID --recall 4 --on_1 --off_2
+
+$DEVID is the SPCI identifier for your device.
+
+The full --help is:
+
+
+usage: benchsupply.py [-h] [--list] [--device DEVICE] [--loglevel {debug,info,warn,error}]
+                      [--recall RECALL] [--voltage_1 VOLTAGE_1] [--voltage_2 VOLTAGE_2]
+                      [--current_1 CURRENT_1] [--current_2 CURRENT_2] [--off_all]
+                      [--off_1] [--on_1] [--off_2] [--on_2] [--off_3] [--on_3] [--measure]
+                      [--settings]
+
+Bench Supply CLI (testbench v 1.0.0)
+
+options:
+  -h, --help            show this help message and exit
+  --list                List all currently connected devices
+  --device DEVICE       Address of device
+  --loglevel {debug,info,warn,error}
+                        Set log level (verbosity)
+  --recall RECALL       stored settings to recall [1-5]
+  --voltage_1 VOLTAGE_1
+                        Vout for channel 1
+  --voltage_2 VOLTAGE_2
+                        Vout for channel 2
+  --current_1 CURRENT_1
+                        Current limit for channel 1
+  --current_2 CURRENT_2
+                        Current limit channel 2
+  --off_all             Outputs ALL OFF
+  --off_1               Output 1 OFF
+  --on_1                Output 1 ON
+  --off_2               Output 2 OFF
+  --on_2                Output 2 ON
+  --off_3               Output 3 OFF
+  --on_3                Output 3 ON
+  --measure             Take measurements on 2 config channels
+  --settings            Dump settings for 2 configurable channels
+
 '''
 from psytestbench.spd3303x.instrument import Channel, Instrument as BenchSupply
 from psytestbench.psytb.cli import CLI 
