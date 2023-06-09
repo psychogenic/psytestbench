@@ -27,6 +27,28 @@ log = logging.getLogger(__name__)
 class LabInstruments:
     
     def __init__(self, typeIdTuplesList:list, autoconnect=True):
+        '''
+            @param typeIdTuplesList: a list of (TYPE, 'identifier') tuples for instruments
+            @param autoconnect: optional (default True) connect on construct
+              
+            A simple container for a collection of lab instruments of various types.
+            
+            Assuming they have been configured and are available, the instrument 
+            collection supports 4 types of instruments, accessible as attributes
+            which will be lazy-initialized (and connected to, according to autoconnect):
+            
+                Power:          lab.powerSupply or lab.psu
+                Sig gen:        lab.signalGenerator
+                o-scope:        lab.oscilloscope or lab.dso
+                DMM:            lab.multimeter or lab.dmm
+            
+            It is good form and wise to call
+                myLab.disconnect()
+            prior to ending a program, to cleanly disconnect from any active devices.
+            
+            @see: examples/mylab.py and examples/console.py
+        
+        '''
         self._instDetails = []
         for ttup in typeIdTuplesList:
             self._instDetails.append(InstrumentType(ttup[0], ttup[1]))

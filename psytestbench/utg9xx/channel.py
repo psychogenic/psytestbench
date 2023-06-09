@@ -24,10 +24,16 @@ class Channel(IndexedProperty):
     '''
         An output channel from the signal generator.
         
-        This is a collection of utility methods to provide a handy interface
-        and mask the SCPI specific stuff (e.g. when it's :CHANNEL<n>:BLAh 
-        vs when it's :CHANnel<n>:BASE:BLAh).
-    
+        Use the channel to turn it on()/off() and set frequency, amplitude, offset...
+        
+        To keep things organized, many of the functions are available through 
+        channel attributes, namely
+        
+            * mode (e.g. continuous, linear sweep, etc)
+            * wave (e.g. sine, square etc)
+            * sweep, which controls linear and log sweep settings
+            
+        See those for details.
     '''
     
     def __init__(self, chanid:int, channelProp:scpi.scpi_instrument.Property):

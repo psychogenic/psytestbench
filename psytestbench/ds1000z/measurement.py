@@ -24,6 +24,10 @@ from psytestbench.psytb.instrument.instrument import InstrumentAPIPackage
 from psytestbench.ds1000z.channel import Channel
 
 class Measurement(InstrumentAPIPackage):
+    '''
+        Retrieve measured values from the DSO
+    
+    '''
     
     def __init__(self, parentInstrument:SCPIInstrument):
         super().__init__(parentInstrument)

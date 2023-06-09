@@ -5,9 +5,6 @@ Created on Jun 6, 2023
 @copyright: Copyright (C) 2023 Pat Deegan, https://psychogenic.com
 '''
 
-import struct
-
-
 from psytestbench.psytb.instrument.uthid import UTHIDInstrument
 
 import psytestbench.psytb.instrument_roles as role
@@ -27,19 +24,54 @@ import logging
 
 log = logging.getLogger(__name__)
 
-class ReadingValueXXX:
-    def __init__(self, val, units):
-        self.value = val 
-        self.units = units
-        
-    def __repr__(self):
-        return f'{self.value}{self.units}'
-        
-
 class Instrument(UTHIDInstrument):
+    '''
+    This class implements functionality for the Unitrend UT880x (tested on UT8804N) digital
+    multimeters.
+    
+    Only measurements available from the current physical selector position are available (i.e. turn the knob).
+    
+    It is normally used asynchronously, with event listeners rather than polled.  This 
+    simple example shows the full manual mode, while still leveraging the response parsing and encapsulation.
+    
+    @see: examples/dmm_logger.py which demonstrates asynchronous event generation, so you don't have to poll manually.
+
+    
+    In short:
+        1) some event listener class is defined, to process incoming measurements
+        2) the DMM instance is created and a listener added/monitor mode engaged
+        3) the DMM is polled occasionally, which will send any received and processed measurements to the listener
+    
+    # this is a class derived from the DMM listener to output measurements received
+    class DMMEventListener(Listener):
+        def dumpReading(self, name, val:ValueWithPrecision):
+            print(f'{name}: {val.value_string} {val.units}')
+            
+        def measurement(self, m:Measurement):
+            print(f'Measurement')
+            for vname in m.valueNames:
+                self.dumpReading(vname, m.valueByName(vname))
+            log.warn("Raw: %s" % str(m))
+    
+    dmm = psytestbench.ut880x.instrument.Instrument('usb:10c4:ea80')
+    # add the listener to the DMM
+    listener = DMMEventListener()
+    dmm.listenerAdd(listener)
+    
+    # enable monitoring of the DMM
+    dmm.monitoring = True 
+    try:
+        for _i in range(400):
+            dmm.poll() # poll it manually (multiple measurements may be sent to listener)
+            time.sleep(0.01)
+    except KeyboardInterrupt:
+        pass
+    
+    dmm.monitoring = False
+    dmm.disconnect()
+    
+    '''
     Role = role.MultiMeter
-    ugh = b'\xab\xcd\x04\x00\x05\x01\n\x00'
-    StartMarker = b'\xab\xcd!'
     def __init__(self, path:str=None):
         
         psytestbench.uthid.seldevice.setDeviceUT800x()

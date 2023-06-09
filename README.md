@@ -56,10 +56,11 @@ Things to note:
   * most of the IDs are SCPI identifiers, the multimeter here is a special case (it's a CP2110 USB interface)
 
 From there, the LabInstruments object above will have accessors for any of the instrument types defined:
-  * oscilloscope or dso (e.g. lab.dso);
-  * signalGenerator;
-  * powerSupply or psu; and
-  * multimeter or dmm
+	
+ * oscilloscope or dso (e.g. lab.dso);
+ * signalGenerator;
+ * powerSupply or psu; and
+ * multimeter or dmm
 are currently available.
 
 These are lazy-initialized, so you won't waste any time connecting to devices that you're not using.
@@ -85,9 +86,10 @@ This will return a tuple of identifiers currently connected.
 ### Serial
 
 For non-scpi devices that may be accessed using the serial port, the identifier is either:
-  * the serial device, e.g. '/dev/ttyUSB0'
-  * the serial "URL", e.g. 'cp2110://1-2:1.0' (anything supported by serial.serial_for_url)
-  * the 'usb:' hack included here (the CP2110 device path changes depending on where you plug it in--annoying)
+
+ * the serial device, e.g. '/dev/ttyUSB0'
+ * the serial "URL", e.g. 'cp2110://1-2:1.0' (anything supported by serial.serial_for_url)
+ * the 'usb:' hack included here (the CP2110 device path changes depending on where you plug it in--annoying)
 
 The usb hack is just a string with 'usb:VENDOR_ID:PRODUCT_ID' as shown by lsusb or whatever windows people use to find out the VID/PID of USB devices.
 
@@ -169,10 +171,11 @@ Control instruments manually
 ```
 ## todo
 
-Make a nice package for python installation.
-Add documentation.
-Clean up the giant mess of importing my UTHID project into this testbench.
-More tools.
+
+ * Make a nice package for python installation.
+ * Add documentation.
+ * Clean up the giant mess of importing my UTHID project into this testbench.
+ * More tools.
 
 ## license 
 

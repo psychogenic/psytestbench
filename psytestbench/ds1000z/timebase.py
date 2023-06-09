@@ -28,11 +28,10 @@ log = logging.getLogger(__name__)
 
 class Timebase(PropertyWrapper):
     '''
-        An output channel from the signal generator.
+        Control the horizontal axis of the DSO, which includes the mode (normal YT, XY...)
+        and scale.
         
-        This is a collection of utility methods to provide a handy interface
-        and mask the SCPI specific stuff (e.g. when it's :CHANNEL<n>:BLAh 
-        vs when it's :CHANnel<n>:BASE:BLAh).
+        A useful utility method is scaleToFrequency() but you can also use scale() directly.
     
     '''
     
@@ -87,6 +86,12 @@ class Timebase(PropertyWrapper):
                 
     
     def scaleToFrequency(self, frequencyHz:int):
+        '''
+            @param frequencyHz: target frequency in Hz
+            
+            This method attempts to auto-scale the time axis for a decent 
+            view of signals at frequency  frequencyHz.
+        '''
         period = 1/frequencyHz 
         # we want around 5-10 cycles per screen
         divisionsPerScreen = settings.ScreenTimeDivisions

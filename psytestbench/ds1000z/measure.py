@@ -20,6 +20,10 @@ from psytestbench.psytb.property import PropertyWrapper, scpi
 from psytestbench.ds1000z.channel import Channel
 
 class Measure(PropertyWrapper):
+    '''
+        Control measurements on the DSO
+    
+    '''
     
     def __init__(self, rawProperty:scpi.scpi_instrument.Property):
         super().__init__(rawProperty)

@@ -20,11 +20,13 @@ from psytestbench.psytb.property import IndexedProperty, scpi
 
 class Channel(IndexedProperty):
     '''
-        An output channel from the signal generator.
-        
-        This is a collection of utility methods to provide a handy interface
-        and mask the SCPI specific stuff (e.g. when it's :CHANNEL<n>:BLAh 
-        vs when it's :CHANnel<n>:BASE:BLAh).
+        A DSO channel.  Using this attribute you can turn on and off 
+        and set
+        * scale
+        * offset
+        * bandwidth limit
+        * coupling (e.g. AC, DC...)
+        etc
     
     '''
     

@@ -65,6 +65,12 @@ class SerialInstrument(Instrument):
         if not self.serialConn.isOpen():
             self.serialConn.open()
             
+    @property 
+    def is_connected(self):
+        if self._serdev is None or not self._serdev:
+            return False 
+        return self.serialConn.isOpen()
+            
 
     def disconnect(self):
         if not self._serdev and self.serialConn.isOpen():

@@ -20,6 +20,9 @@ If not, see <https://www.gnu.org/licenses/>.
 from psytestbench.psytb.property import PropertyWrapper, scpi
 
 class Acquire(PropertyWrapper):
+    '''    
+        Control DSO acquisition (e.g. normal, peak, average etc)
+    '''
     
     def __init__(self, rawProperty:scpi.scpi_instrument.Property):
         super().__init__(rawProperty)

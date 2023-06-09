@@ -2,6 +2,95 @@
 
 This has been tested on the SPD3303C, can see and control it through the examples/benchsupply.py script.
 
+The power supply has a few methods of its own, like the various
+tracking method setters and a measurements attribute, but most of the 
+functionality is through the channels themselves.
+         
+This PSU has 3 channels:
+
+	* #1 and #2 are programmable
+	* #3 is 2v5, 3v3 or 5v (set manually with a switch)
+
+Each channel is accessible with the .channeln accessor and has 
+relevant methods, e.g. 
+
+```
+    psu = psytestbench.spd3303x.instrument.Instrument('USB0::1155 ... ')
+
+    psu.channel2.voltage(4.2)
+    psu.channel2.on()
+```
+
+Only the on()/off() methods are relevant to channel 3.
+
+Setting and querying present values is through the same methods, with 
+no parameters
+
+```
+    v = psu.channel1.voltage()
+    i = psu.channel1.current()
+```
+
+If you want the actual measured values, these are access through a 
+'measurement' attribute:
+
+
+```
+    measuredV = psu.measurement.channel1.voltage
+    measuredI = psu.measurement.channel1.current
+````
+
+
+### instantiation
+
+You basically only need the SCPI identifier for the device.  This can be discovered through the `listResources` 
+class method on any of the SCPI-based instrument classes, e.g.
+
+```
+   from psytestbench.spd3303x.instrument import Instrument as BenchSupply 
+   
+   print(BenchSupply.listResources())
+```
+
+This method returns a tuple of all the discovered SCPI devices.  The device of interest should be rather obvious.
+
+From there, either instantiate directly
+
+```
+	myPSU = BenchSupply('USB0::1235::31563::SPD3XGEQ4R1841::0::INSTR')
+```
+
+using the appropriate identifier or set it up as part of a LabInstruments object, which will handle lazy initialization
+and only connect to instruments as they are used for the first time.  You can see `examples/mylab.py` and the `examples/console.py` which 
+uses the lab instrument collection, but is basically
+
+```
+
+# get the classes for the specific devices I actually have
+from psytestbench.ds1000z.instrument import Instrument as OScope
+from psytestbench.spd3303x.instrument import Instrument as BenchSupply
+from psytestbench.utg9xx.instrument import Instrument as SigGen
+from psytestbench.ut880x.instrument import Instrument as Multimeter
+
+# init the lab instrument collection with a list of tuples
+# (DEVICE_CLASS, ID)
+
+Lab = LabInstruments([
+        (OScope,        'USB0::6833::1230::DS1ZA181104442::0::INSTR'),
+        (BenchSupply,   'USB0::1155::30016::SPD3EGFQ6R2092::0::INSTR' ),
+        (SigGen,        'USB0::26198::2100::3568543393::0::INSTR'),
+        (Multimeter,    'usb:10c4:ea80')
+        ],
+        autoconnect=True)
+```
+
+From there you can use the various instruments configured, e.g.
+
+```
+Lab.psu.channel1.on()
+```
+
+
 ### sample usage
 
 ```
@@ -28,9 +117,9 @@ pwrsupply.channel2.on()
 
 # measure output voltage/current 
 print(
-	pwrsupply.measurement.voltage(pwrsupply.channel1) )
+	pwrsupply.measurement.channel1.voltage )
 print(
-	pwrsupply.measurement.current(pwrsupply.channel2) )
+	pwrsupply.measurement.channel2.current)
 	
 pwrsupply.channel3.on()
 pwrsupply.channel1.off()

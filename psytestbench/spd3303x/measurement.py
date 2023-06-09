@@ -22,10 +22,33 @@ from psytestbench.psytb.instrument.scpi import SCPIInstrument
 
 from psytestbench.spd3303x.channel import Channel
 
+class MeasuredChannel:
+    def __init__(self, parentMeasurement, forChannel:Channel):
+        self.measParent = parentMeasurement
+        self.chan = forChannel 
+        
+    @property 
+    def current(self):
+        return self.measParent.getMeasurementOf('CURRENT', self.chan)
+    
+    @property 
+    def voltage(self):
+        return self.measParent.getMeasurementOf('VOLTAGE', self.chan)
+    
+    @property
+    def power(self):
+        return self.measParent.getMeasurementOf('POWER', self.chan)
+
 class Measurement(InstrumentAPIPackage):
     
-    def __init__(self, parentInstrument:SCPIInstrument):
+    def __init__(self, parentInstrument:SCPIInstrument, channelsList:list=None):
         super().__init__(parentInstrument)
+        if channelsList and len(channelsList):
+            count = 1
+            for chan in channelsList:
+                name = f'channel{count}'
+                setattr(self, name, MeasuredChannel(self, chan))
+                count += 1
         
         
     def getMeasurementOf(self, itemName:str, forChannel:Channel=None):
