@@ -19,6 +19,9 @@ oscilloscopes, multimeters, signal generators and other tools used in a electron
  * Unitrend Uni-T UT880x multi-meters (test on UT8804N, should work on all 8000 series?)
 
 
+If you use something else and would like to have it supported in the library, you can use existing code for 
+inspiration or [get in touch with me](https://psychogenic.com/contact/) with questions or for consulting.
+
 
 ## Sample
 
