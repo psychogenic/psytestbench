@@ -23,6 +23,16 @@ If you use something else and would like to have it supported in the library, yo
 inspiration or [get in touch with me](https://psychogenic.com/contact/) with questions or for consulting.
 
 
+## Install
+
+From the top level dir, you can build packages and install the usual way, e.g. with
+
+```
+$ python3 -m build
+$ pip install ./dist/psytestbench-*-py3-none-any.whl
+
+```
+
 ## Sample
 
 A bit of interaction with the signal gen and scope
@@ -241,7 +251,6 @@ Control instruments manually
 ## todo
 
 
- * Make a nice package for python installation.
  * Add documentation.
  * Clean up the giant mess of importing my UTHID project into this testbench.
  * More tools.
