@@ -38,6 +38,7 @@ dso.connect()
 # set a 2khz square wave on 1
 siggen.channel1.frequency(2000)
 siggen.channel1.wave.square()
+siggen.channel1.on()
 
 # setup and turn on channels
 dso.channel1.bandwidthLimit20MHz()
