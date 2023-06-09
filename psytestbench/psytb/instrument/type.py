@@ -31,5 +31,20 @@ class InstrumentType:
     
     def construct(self):
         ctype = self.classType 
-        return ctype(self.resourceId)
+        
+        attemptWithoutPortMatch = False
+        newObj = None
+        try:
+            newObj = ctype(self.resourceId)
+        except RuntimeError as e:
+            if self.resourceId.lower().find('tcpip') >= 0:
+                attemptWithoutPortMatch = True
+            else:
+                raise e
+            
+        if newObj is not None:
+            return newObj
+        
+        if attemptWithoutPortMatch:
+            return ctype(self.resourceId, port_match=False)
     

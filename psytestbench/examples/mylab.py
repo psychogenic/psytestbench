@@ -30,7 +30,8 @@ from psytestbench.ut880x.instrument import Instrument as Multimeter
 # (DEVICE_CLASS, ID)
 
 Lab = LabInstruments([
-        (OScope,        'USB0::6833::1230::DS1ZA181104442::0::INSTR'),
+        # (OScope,        'USB0::6833::1230::DS1ZA181104442::0::INSTR'),
+        (OScope,        'TCPIP::192.168.0.24::INSTR'),
         (BenchSupply,   'USB0::1155::30016::SPD3EGFQ6R2092::0::INSTR' ),
         (SigGen,        'USB0::26198::2100::3568543393::0::INSTR'),
         (Multimeter,    'usb:10c4:ea80')

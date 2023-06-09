@@ -60,7 +60,13 @@ class SCPIInstrument(scpi.Instrument):
 
         
         '''
-        super().__init__(port, port_match, backend, handshake, arg_separator, **resource_params)
+        try:
+            super().__init__(port, port_match, backend, handshake, arg_separator, **resource_params)
+        except RuntimeError as e:
+            if port is not None and port.lower().find('tcpip') >= 0 and port_match:
+                raise RuntimeError(f'Could not match port {port}--try with port_match=False parameter')
+            else:
+                raise e
         self.min_write_delay_s = 0
         
     def identity(self):

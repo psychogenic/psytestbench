@@ -105,9 +105,14 @@ and may then construct a LabInstruments object like so:
 ```
 
 Lab = LabInstruments([
-        (OScope,        'USB0::6833::1230::DS1ZA181104442::0::INSTR'),
+        # TCP/IP connected DS1054z using SCPI
+        (OScope,        'TCPIP::192.168.0.24::INSTR'),
+        
+        # USB connected psu and signal gen also using SCPI
         (BenchSupply,   'USB0::1155::30016::SPD3EGFQ6R2092::0::INSTR' ),
         (SigGen,        'USB0::26198::2100::3568543393::0::INSTR'),
+        
+        # Uni-T DMM using it's own thing, through USB
         (Multimeter,    'usb:10c4:ea80')
         ],
         autoconnect=True)
