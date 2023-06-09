@@ -3,13 +3,13 @@ Electronics Testbench Automation Library
 
 (C) 2023 Pat Deegan, [psychogenic.com](https://psychogenic.com)
 
-This library is a set of utilities and wrappers built-atop the awesome easy_scpi
+This Python library is a set of utilities and wrappers (mostly built-atop the awesome easy_scpi)
 to allow for simplified control of lab instruments.
 
 It is a repository of interfaces for the electronics lab instruments used here, and by much of the maker community and other companies.
 
-It's goal is to offer a sensibly uniform means of controlling power supplies, 
-oscilloscopes, multimeters, signal generators and other tools that support SCPI.
+Its goal is to offer a sensibly uniform means of controlling and querying power supplies, 
+oscilloscopes, multimeters, signal generators and other tools used in a electronics lab.
 
 ## Current instruments supported
 
@@ -20,9 +20,69 @@ oscilloscopes, multimeters, signal generators and other tools that support SCPI.
 
 
 
+## Sample
+
+A bit of interaction with the signal gen and scope
+
+```
+
+# instantiate
+siggen = psytestbench.utg9xx.instrument.Instrument('USB0::26191::2100::3573542343::0::INSTR')
+dso =  psytestbench.ds1000z.instrument.Instrument('USB0::ETC::INSTR' )
+
+
+siggen.connect()
+dso.connect()
+
+
+# set a 2khz square wave on 1
+siggen.channel1.frequency(2000)
+siggen.channel1.wave.square()
+
+# setup and turn on channels
+dso.channel1.bandwidthLimit20MHz()
+dso.channel1.couplingDC()
+dso.channel1.on()
+
+dso.channel2.couplingAC()
+dso.channel2.on()
+
+# set the trigger mode, looking at low freqs here
+dso.trigger.modeEdge()
+dso.trigger.edge.source(dso.channel1)
+dso.trigger.couplingLowpass()
+dso.trigger.normal()
+
+
+# I want these to be monitored/measured
+# freq on 1 and V peak-to-peak on 1 and 2
+dso.measure.frequency(dso.channel1)
+dso.measure.vPP(dso.channel1)
+dso.measure.vPP(dso.channel2)
+
+# make certain we're acquiring
+dso.run()
+
+
+freq = dso.measurement.frequency(dso.channel1)
+vpp = dso.measurement.vPP(dso.channel1)
+postvpp = dso.measurement.vPP(dso.channel2)
+
+# ...
+
+
+```
+
+
 ## HOWTO
 
-If you look into the `psytestbench/examples/mylab.py` you will see how I set up the `LabInstruments` 
+Each instrument may be used stand-alone but the most convenient method is to setup a collection 
+of lab instruments and just access that from whichever script, console or REPL you're working on.
+
+If your focus is on one particular instrument, I've created top-level READMEs in each of the 
+package directories.
+
+For the instrument collection, if you look into the `psytestbench/examples/mylab.py` you will see how I set up the `LabInstruments` 
 object to work in the examples and... my lab.
 
 In short, you can describe the instruments you actually have, by selecting their type and defining 
