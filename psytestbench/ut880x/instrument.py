@@ -24,6 +24,23 @@ import logging
 
 log = logging.getLogger(__name__)
 
+class ChannelDummy:
+    def __init__(self, parent:UTHIDInstrument):
+        self.parent = parent 
+        
+    def on(self, setTo:bool=True):
+        if not setTo:
+            if self.parent.async_monitoring:
+                self.parent.stopAsyncMonitoring()
+        
+        
+        self.parent.monitoring = setTo 
+        
+    def off(self):
+        return self.on(False)
+    
+    
+
 class Instrument(UTHIDInstrument):
     '''
     This class implements functionality for the Unitrend UT880x (tested on UT8804N) digital
@@ -78,6 +95,9 @@ class Instrument(UTHIDInstrument):
         
         import psytestbench.uthid.frame.command as commands
         super().__init__(path, commands)
+        
+        self.channel1 = ChannelDummy(self)
+        self.channels = [self.channel1]
     
     def flush(self):
         self.read_all()

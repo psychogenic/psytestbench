@@ -236,12 +236,6 @@ def basicSetup():
     
     '''
     
-    ### multi-meter
-    dmm = lab.dmm 
-    dmm.connect()
-    dmm.listenerAdd(CurrentAverager)
-    dmm.startAsyncMonitoring() # enables monitoring automatically
-    
     
     ### oscilloscope
     dso = lab.dso
@@ -276,7 +270,6 @@ def basicSetup():
     
     
     ### Power supply
-    
     psu = lab.powerSupply
     psu.connect()
     psu.channel1.voltage(PowerRampStartV)
@@ -285,7 +278,6 @@ def basicSetup():
     
     
     ### signal generator
-    
     siggen = lab.signalGenerator
     siggen.connect()
     siggen.channel1.wave.sine()
@@ -293,6 +285,15 @@ def basicSetup():
     siggen.channel1.frequency(10)
     siggen.channel1.amplitude(InputSignalAmplitudeVolts)
     siggen.channel1.on()
+    
+    
+    
+    
+    ### multi-meter
+    dmm = lab.dmm 
+    dmm.connect()
+    dmm.listenerAdd(CurrentAverager)
+    dmm.startAsyncMonitoring() # enables monitoring automatically
     
     
     

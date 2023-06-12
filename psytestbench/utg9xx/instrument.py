@@ -84,7 +84,7 @@ class Instrument(SCPIInstrument):
         super().__init__(port, port_match, backend, handshake, arg_separator, **resource_params)
         self.channel1 = Channel(1, self.channel1)
         self.channel2 = Channel(2, self.channel2)
-        self.channels = [self.output1, self.output2]
+        self.channels = [self.channel1, self.channel2]
         
         
     def lock(self, setLocked:bool=True):

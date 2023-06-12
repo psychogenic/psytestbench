@@ -105,6 +105,11 @@ class UTHIDInstrument(SerialInstrument):
         resp = self.send(self.commands.Monitor(enable))
         self._monitoring = enable
         return self._checkResponse(resp)
+    
+    @property 
+    def async_monitoring(self):
+        return self._monitor_thread is not None
+    
 
     def disconnect(self):
         if not self.stopAsyncMonitoring():
