@@ -100,6 +100,8 @@ class UTHIDInstrument(SerialInstrument):
     
     @monitoring.setter 
     def monitoring(self, enable):
+        if enable == self._monitoring:
+            return 
         resp = self.send(self.commands.Monitor(enable))
         self._monitoring = enable
         return self._checkResponse(resp)
@@ -120,10 +122,10 @@ class UTHIDInstrument(SerialInstrument):
     
     def startAsyncMonitoring(self):
         if self._monitor_thread:
-            return None
+            return self._monitor_thread
         
         self.monitoring = True
-        self._monitor_thread = threading.Thread(target=self.monitor_thread(self), args=(self,), 
+        self._monitor_thread = threading.Thread(target=self.monitor_thread, args=(self,), 
                                                 daemon=True)
         self._monitor_thread.start()
         
