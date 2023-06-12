@@ -1,0 +1,3 @@
+pyvisa
+hid
+serial
