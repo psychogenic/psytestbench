@@ -240,9 +240,8 @@ def basicSetup():
     ### multi-meter
     dmm = lab.dmm 
     dmm.connect()
-    dmm.monitoring = True
-    #dmm.listenerAdd(CurrentAverager)
-    #dmm.startAsyncMonitoring()
+    dmm.listenerAdd(CurrentAverager)
+    dmm.startAsyncMonitoring() # enables monitoring automatically
     
     
     ### oscilloscope
