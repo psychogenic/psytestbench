@@ -19,6 +19,6 @@ If not, see <https://www.gnu.org/licenses/>.
 
 MAJOR=1
 MINOR=0
-PATCH=3
+PATCH=4
 
 VERSION=f'{MAJOR}.{MINOR}.{PATCH}'
