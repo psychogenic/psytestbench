@@ -100,4 +100,6 @@ if __name__ == '__main__':
     
     launchREPL(globals())
     
+    lab.disconnect()
+    
     

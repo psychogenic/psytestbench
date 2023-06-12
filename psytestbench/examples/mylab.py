@@ -26,12 +26,20 @@ from psytestbench.spd3303x.instrument import Instrument as BenchSupply
 from psytestbench.utg9xx.instrument import Instrument as SigGen
 from psytestbench.ut880x.instrument import Instrument as Multimeter
 
+
+# these imports are just to make things more intuitive from user side
+# see lowpass_characterize example.
+from psytestbench.ut880x.instrument import Listener as DMMListener
+from psytestbench.ut880x.instrument import Measurement as DMMMeasurement
+from psytestbench.ut880x.instrument import ValueWithPrecision as DMMValueWithPrecision
+
 # init the lab instrument collection with a list of tuples
 # (DEVICE_CLASS, ID)
 
 Lab = LabInstruments([
-        # (OScope,        'USB0::6833::1230::DS1ZA181104442::0::INSTR'),
-        (OScope,        'TCPIP::192.168.0.24::INSTR'),
+        (OScope,        'USB0::6833::1230::DS1ZA181104442::0::INSTR'),
+        # (OScope,        'TCPIP::192.168.0.24::INSTR'),
+        
         (BenchSupply,   'USB0::1155::30016::SPD3EGFQ6R2092::0::INSTR' ),
         (SigGen,        'USB0::26198::2100::3568543393::0::INSTR'),
         (Multimeter,    'usb:10c4:ea80')
