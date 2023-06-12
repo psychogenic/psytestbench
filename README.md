@@ -25,11 +25,33 @@ inspiration or [get in touch with me](https://psychogenic.com/contact/) with que
 
 ## Install
 
+It's a pure Python library, installation is pretty standard.
+
+
+### from package
+You can get the [latest release](https://github.com/psychogenic/psytestbench/releases) .whl file, e.g. psytestbench-1.0.4-py3-none-any.whl
+
+Install the requirements
+
+```
+$ pip3 install -r https://raw.githubusercontent.com/psychogenic/psytestbench/main/requirements.txt
+```
+
+
+Install the package
+
+```
+$ pip3 install ./psytestbench-*-py3-none-any.whl
+```
+
+
+### from source
 From the top level dir, you can build packages and install the usual way, e.g. with
 
 ```
+$ pip3 install -r ./requirements.txt
 $ python3 -m build
-$ pip install ./dist/psytestbench-*-py3-none-any.whl
+$ pip3 install ./dist/psytestbench-*-py3-none-any.whl
 
 ```
 
