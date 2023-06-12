@@ -83,7 +83,7 @@ class Instrument(SCPIInstrument):
             
             ])
         
-        self.outputs = [
+        self.channels = [
                 self.channel1,
                 self.channel2,
                 self.channel3
@@ -115,7 +115,7 @@ class Instrument(SCPIInstrument):
         
     def selected(self) -> Channel:
         v = self.inst().rstrip()
-        for ch in self.outputs:
+        for ch in self.channels:
             if v == ch.name:
                 return ch 
             

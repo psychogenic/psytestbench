@@ -236,7 +236,6 @@ def basicSetup():
     
     '''
     
-    
     ### multi-meter
     dmm = lab.dmm 
     dmm.connect()

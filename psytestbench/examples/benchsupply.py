@@ -236,7 +236,7 @@ def main():
     
     if args.offALL:
         log.info("All outputs OFF")
-        for ch in dev.outputs:
+        for ch in dev.channels:
             ch.off()
              
     else:
