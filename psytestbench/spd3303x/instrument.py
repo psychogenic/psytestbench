@@ -77,7 +77,7 @@ class Instrument(SCPIInstrument):
         self.channel2 = Channel(2, self, self.ch2)
         self.channel3 = Channel(3, self, self.ch2)
         
-        self.measurement = Measurement(self [
+        self.measurement = Measurement(self, [
             self.channel1,
             self.channel2
             

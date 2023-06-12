@@ -31,7 +31,10 @@ class PowerSupply(InstrumentRole):
     
     
     @classmethod 
-    def ramp(cls, voltageSetter, startValue:float, endValue:float, step:float, delaySeconds:float=0.33):
+    def ramp(cls, voltageSetter,
+             startValue:float, 
+             endValue:float, step:float, 
+             delaySeconds:float=0.03):
         
         goingUp = True 
         if startValue <= endValue:
