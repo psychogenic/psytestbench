@@ -29,44 +29,22 @@ import psytestbench.examples.mylab
 def main():
     lab = psytestbench.examples.mylab.Lab
     
-    # assumes auto-connect is true
-    dso = lab.dso
-    if dso and dso.is_connected:
-        print("Turning everything off for DSO")
-        for ch in dso.channels:
-            ch.off()
-        
-        dso.stop()
-    else:
-        print("No DSO present")
-        
-    psu = lab.psu 
-    if psu and psu.is_connected:
-        print("Turning everything off for PSU")
-        for ch in psu.channels:
-            ch.off()
-    else:
-        print("No PSU present")
-        
-            
+    # assumes auto-connect in LabInstruments collection is true
+    instruments = {
+       'DSO': lab.dso,
+       'PSU': lab.psu,
+       'SigGen': lab.signalGenerator,
+       'DMM': lab.dmm   
+       }
     
     
-    siggen = lab.signalGenerator 
-    if siggen and siggen.is_connected:
-        print("Turning everything off for SigGen")
-        for ch in siggen.channels:
-            ch.off()
-    else:
-        print("No SigGen present")
-    
-    
-    dmm = lab.dmm 
-    if dmm and dmm.is_connected:
-        print("Turning everything off for DMM")
-        for ch in dmm.channels:
-            ch.off()
-    else:
-        print("No DMM present")
+    for name, inst in instruments.items():
+        if inst and inst.is_connected:
+            print(f'Turning everything off for {name}')
+            for ch in inst.channels:
+                ch.off()
+        else:
+            print(f'No {name} present')
     
     
     lab.disconnect()
