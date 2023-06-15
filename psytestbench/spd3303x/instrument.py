@@ -80,7 +80,6 @@ class Instrument(SCPIInstrument):
         self.measurement = Measurement(self, [
             self.channel1,
             self.channel2
-            
             ])
         
         self.channels = [

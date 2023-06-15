@@ -33,6 +33,11 @@ from psytestbench.ut880x.instrument import Listener as DMMListener
 from psytestbench.ut880x.instrument import Measurement as DMMMeasurement
 from psytestbench.ut880x.instrument import ValueWithPrecision as DMMValueWithPrecision
 
+
+
+
+
+
 # init the lab instrument collection with a list of tuples
 # (DEVICE_CLASS, ID)
 
@@ -49,3 +54,5 @@ Lab = LabInstruments([
 # now when I
 # Lab.oscilloscope etc the device will be instantiated
 # and connected to
+
+
