@@ -25,7 +25,19 @@ inspiration or [get in touch with me](https://psychogenic.com/contact/) with que
 
 ## Install
 
-It's a pure Python library, installation is pretty standard.
+It's a pure Python library, installation is pretty standard (and optional)
+
+
+### no install
+
+Just clone the repo and you should be able to run the examples from the directory which contains the `psytestbench` package, e.g.
+
+```
+python3  psytestbench/examples/console.py
+
+```
+
+(note, you'll want to edit psytestbench/examples/mylab.py to set the instrument IDs, see HOWTO below)
 
 
 ### from package
